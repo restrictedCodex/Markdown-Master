@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react';
+import { Remarkable } from 'remarkable';
+
+
+function getRawMarkup(e){
+    const md = new Remarkable();
+    return {__html: md.render(e)};
+} 
 
 function App() {
+  const [text,setState] = useState('Type some *markdown* here!');
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+     <>
+     <div className="container">
+     <div className="input">
+         <h3>Input</h3>
+     <textarea
+         className="input-text"
+         onChange={setState()}
+         defaultValue={text}
+     />
+     </div>
+     <div className="output">
+         <h3>Markdown</h3>
+     <div 
+         dangerouslySetInnerHTML={getRawMarkup(text)}
+         className="output-text"
+     >
+     </div>
+     </div>                
+     </div>
+     </>
   );
 }
 
